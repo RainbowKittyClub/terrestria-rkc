@@ -3,8 +3,8 @@ package com.terraformersmc.terrestria.surface.builders;
 import com.terraformersmc.biolith.api.biomeperimeters.BiomePerimeters;
 import com.terraformersmc.biolith.api.surface.BiolithSurfaceBuilder;
 import com.terraformersmc.terraform.noise.api.OpenSimplexNoise;
+import com.terraformersmc.terrestria.surface.SurfaceRandomState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
@@ -15,6 +15,7 @@ import net.minecraft.world.level.chunk.BlockColumn;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.Noises;
+import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class OceanIslandSurfaceBuilder extends BiolithSurfaceBuilder {
@@ -38,12 +39,11 @@ public class OceanIslandSurfaceBuilder extends BiolithSurfaceBuilder {
 
 	@Override
 	public void generate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
-		ServerLevel overworld = TerrestriaSurfaceBuilders.getOverworld();
-		if (overworld == null) {
-			throw new IllegalStateException("Overworld does not exist during Overworld surface generation...");
+		RandomState randomState = SurfaceRandomState.current();
+		if (randomState == null) {
+			throw new IllegalStateException("Volcanic island surface generated outside SurfaceSystem.buildSurface()...");
 		}
-		NormalNoise surface = overworld.getChunkSource().chunkMap.randomState
-				.getOrCreateNoise(Noises.SURFACE);
+		NormalNoise surface = randomState.getOrCreateNoise(Noises.SURFACE);
 
 		// Find the original top Y value, the desired top Y value, and the delta between them.
 		// We can't trust the provided vHeight because we need the ocean floor instead of surface.
