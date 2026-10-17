@@ -5,6 +5,7 @@
   "mixins": [
     "MixinLavaFluid",
     "MixinLiquidBlock",
+    "MixinSurfaceSystem",
     "MixinWaterAnimal"
   ],
   "injectors": {
