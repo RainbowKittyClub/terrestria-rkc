@@ -497,15 +497,17 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		MultiVariant podzolTexture = BlockModelGenerators.plainVariant(podzolTextureId);
 		generator.createGrassLikeBlock(dirtBlocks.podzolBlock(), podzolTexture, snowStateVariant);
 
-		// Farmland from BlockStateModelGenerator.registerFarmland()
+		// Farmland from BlockModelGenerators.createFarmland()
 		TextureMapping farmlandTexture = new TextureMapping()
-				.put(TextureSlot.DIRT, TextureMapping.getBlockTexture(dirtBlocks.dirtBlock()))
+				.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(dirtBlocks.dirtBlock()))
+				.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(dirtBlocks.dirtBlock()))
 				.put(TextureSlot.TOP, TextureMapping.getBlockTexture(Objects.requireNonNull(dirtBlocks.farmBlock())));
 		TextureMapping moistFarmlandTexture = new TextureMapping()
-				.put(TextureSlot.DIRT, TextureMapping.getBlockTexture(dirtBlocks.dirtBlock()))
+				.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(dirtBlocks.dirtBlock()))
+				.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(dirtBlocks.dirtBlock()))
 				.put(TextureSlot.TOP, TextureMapping.getBlockTexture(dirtBlocks.farmBlock(), "_moist"));
-		Identifier farmlandModelId = ModelTemplates.FARMLAND.create(dirtBlocks.farmBlock(), farmlandTexture, generator.modelOutput);
-		Identifier moistFarmlandModelId = ModelTemplates.FARMLAND.create(TextureMapping.getBlockTexture(dirtBlocks.farmBlock(), "_moist").sprite(), moistFarmlandTexture, generator.modelOutput);
+		Identifier farmlandModelId = ModelTemplates.CUBE_BOTTOM_TOP_INDENTED.create(dirtBlocks.farmBlock(), farmlandTexture, generator.modelOutput);
+		Identifier moistFarmlandModelId = ModelTemplates.CUBE_BOTTOM_TOP_INDENTED.create(TextureMapping.getBlockTexture(dirtBlocks.farmBlock(), "_moist").sprite(), moistFarmlandTexture, generator.modelOutput);
 		MultiVariant farmlandModel = BlockModelGenerators.plainVariant(farmlandModelId);
 		MultiVariant moistFarmlandModel = BlockModelGenerators.plainVariant(moistFarmlandModelId);
 		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(dirtBlocks.farmBlock())
