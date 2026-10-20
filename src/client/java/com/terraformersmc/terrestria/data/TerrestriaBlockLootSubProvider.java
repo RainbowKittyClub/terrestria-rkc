@@ -7,8 +7,6 @@ import com.terraformersmc.terrestria.init.helpers.WoodBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -26,8 +24,6 @@ public class TerrestriaBlockLootSubProvider extends FabricBlockLootSubProvider {
 
 	@Override
 	public void generate() {
-		HolderLookup.RegistryLookup<Enchantment> enchantmentRegistry = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-
 		// simple blocks
 		dropSelf(TerrestriaBlocks.AGAVE);
 		dropSelf(TerrestriaBlocks.ALOE_VERA);
@@ -110,7 +106,7 @@ public class TerrestriaBlockLootSubProvider extends FabricBlockLootSubProvider {
 				createSilkTouchDispatchTable(TerrestriaBlocks.SAGUARO_CACTUS,
 						applyExplosionCondition(TerrestriaBlocks.SAGUARO_CACTUS,
 								LootItem.lootTableItem(TerrestriaBlocks.SAGUARO_CACTUS_SAPLING))
-								.when(BonusLevelTableCondition.bonusLevelFlatChance(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE), 0.2f, 0.24285715f, 0.5f, 2.0f))));
+								.when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.2f, 0.24285715f, 0.5f, 2.0f))));
 	}
 
 	private void addDirtDrops(DirtBlocks dirtBlock) {
