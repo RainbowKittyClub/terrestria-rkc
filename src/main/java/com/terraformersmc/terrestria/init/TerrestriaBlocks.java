@@ -143,9 +143,9 @@ public class TerrestriaBlocks {
 		STACKED_STRIPPED_YUCCA_PALM_LOGS = TerrestriaRegistry.register("stacked_stripped_yucca_palm_logs", RotatedPillarBlock::new, PillarLogHelper.createProperties(WoodColors.YUCCA_PALM.planks));
 
 		// strange leaves
-		DARK_JAPANESE_MAPLE_LEAVES = TerrestriaRegistry.register("dark_japanese_maple_leaves", settings -> new ColoredParticleLeavesBlock(0.01f, 0x351829, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.TERRACOTTA_RED).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves).isSuffocating(TerrestriaBlocks::never).isViewBlocking(TerrestriaBlocks::never));
-		JAPANESE_MAPLE_SHRUB_LEAVES = TerrestriaRegistry.register("japanese_maple_shrub_leaves", settings -> new ColoredParticleLeavesBlock(0.01f, 0x4e001f, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves).isSuffocating(TerrestriaBlocks::never).isViewBlocking(TerrestriaBlocks::never));
-		JUNGLE_PALM_LEAVES = TerrestriaRegistry.register("jungle_palm_leaves", settings -> new ColoredParticleLeavesBlock(0.02f, 0x225723, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves).isSuffocating(TerrestriaBlocks::never).isViewBlocking(TerrestriaBlocks::never));
+		DARK_JAPANESE_MAPLE_LEAVES = TerrestriaRegistry.register("dark_japanese_maple_leaves", settings -> new ColoredParticleLeavesBlock(0.01f, 0x351829, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.TERRACOTTA_RED).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves));
+		JAPANESE_MAPLE_SHRUB_LEAVES = TerrestriaRegistry.register("japanese_maple_shrub_leaves", settings -> new ColoredParticleLeavesBlock(0.01f, 0x4e001f, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves));
+		JUNGLE_PALM_LEAVES = TerrestriaRegistry.register("jungle_palm_leaves", settings -> new ColoredParticleLeavesBlock(0.02f, 0x225723, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves));
 
 		// swamp blocks
 		CATTAIL = TerrestriaRegistry.register("cattail", CattailBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS));
@@ -248,10 +248,6 @@ public class TerrestriaBlocks {
 
 	private static void addStrippables() {
 		StrippableBlockRegistry.register(SMALL_OAK_LOG, STRIPPED_SMALL_OAK_LOG);
-	}
-
-	public static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
-		return false;
 	}
 
 	public static Boolean canSpawnOnLeaves(BlockState state, BlockGetter world, BlockPos pos, EntityType<?> type) {

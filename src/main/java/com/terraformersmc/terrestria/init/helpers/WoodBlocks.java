@@ -91,15 +91,15 @@ public class WoodBlocks {
 		// register natural and stripped blocks
 
 		if (usesExtendedLeaves) {
-			leaves = TerrestriaRegistry.register(name + "_leaves", TerrestriaOptiLeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves).isSuffocating(TerrestriaBlocks::never).isViewBlocking(TerrestriaBlocks::never));
+			leaves = TerrestriaRegistry.register(name + "_leaves", TerrestriaOptiLeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves));
 		} else {
 			if (size.equals(LogSize.SMALL)) {
-				leaves = TerrestriaRegistry.register(name + "_leaves", settings -> new ExtendedLeavesBlock(0.01f, tintable ? Optional.empty() : Optional.of(ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, colors.leaves.col)), false, true, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves).isSuffocating(TerrestriaBlocks::never).isViewBlocking(TerrestriaBlocks::never));
+				leaves = TerrestriaRegistry.register(name + "_leaves", settings -> new ExtendedLeavesBlock(0.01f, tintable ? Optional.empty() : Optional.of(ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, colors.leaves.col)), false, true, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves));
 			} else {
 				if (tintable) {
-					leaves = TerrestriaRegistry.register(name + "_leaves", settings -> new TintedParticleLeavesBlock(0.01f, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves).isSuffocating(TerrestriaBlocks::never).isViewBlocking(TerrestriaBlocks::never));
+					leaves = TerrestriaRegistry.register(name + "_leaves", settings -> new TintedParticleLeavesBlock(0.01f, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves));
 				} else {
-					leaves = TerrestriaRegistry.register(name + "_leaves", settings -> new ColoredParticleLeavesBlock(0.01f, colors.leaves.col, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves).isSuffocating(TerrestriaBlocks::never).isViewBlocking(TerrestriaBlocks::never));
+					leaves = TerrestriaRegistry.register(name + "_leaves", settings -> new ColoredParticleLeavesBlock(0.01f, colors.leaves.col, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(colors.leaves).isValidSpawn(TerrestriaBlocks::canSpawnOnLeaves));
 				}
 			}
 		}
