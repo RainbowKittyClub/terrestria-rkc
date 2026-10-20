@@ -9,10 +9,10 @@ import com.terraformersmc.terraform.wood.api.block.SmallLogBlock;
 import com.terraformersmc.terrestria.Terrestria;
 import com.terraformersmc.terrestria.block.TerrestriaOptiLeavesBlock;
 import com.terraformersmc.terrestria.init.TerrestriaBlocks;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
@@ -190,13 +190,13 @@ public class WoodBlocks {
 
 	private void addStrippables() {
 		if (log != null && strippedLog != null) {
-			StrippableBlockRegistry.register(log, strippedLog);
+			BlockTransformerHelper.registerStripping(log, strippedLog);
 		}
 		if (wood != null && strippedWood != null) {
-			StrippableBlockRegistry.register(wood, strippedWood);
+			BlockTransformerHelper.registerStripping(wood, strippedWood);
 		}
 		if (quarterLog != null && strippedQuarterLog != null) {
-			StrippableBlockRegistry.register(quarterLog, strippedQuarterLog);
+			BlockTransformerHelper.registerStripping(quarterLog, strippedQuarterLog);
 		}
 	}
 
