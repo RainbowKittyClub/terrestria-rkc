@@ -29,8 +29,6 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
-
-	accessWidenerPath = file("src/main/resources/terrestria.accesswidener")
 }
 
 fabricApi {
