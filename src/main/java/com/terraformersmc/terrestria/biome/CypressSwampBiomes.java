@@ -13,7 +13,6 @@ import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.attribute.modifier.FloatModifier;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -73,10 +72,10 @@ public class CypressSwampBiomes {
 
 	private static MobSpawnSettings createSpawnSettings() {
 		MobSpawnSettings.Builder builder = TerrestriaBiomes.createDefaultSpawnSettings();
-		builder.addSpawn(MobCategory.WATER_AMBIENT, 8, new MobSpawnSettings.SpawnerData(EntityTypes.COD, 2, 4));
-		builder.addSpawn(MobCategory.MONSTER,  1, new MobSpawnSettings.SpawnerData(EntityTypes.SLIME, 1, 1));
-		builder.addSpawn(MobCategory.MONSTER, 50, new MobSpawnSettings.SpawnerData(EntityTypes.BOGGED, 4, 4));
-		builder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, 2, 5));
+		builder.addSpawn(EntityTypes.COD, 8, 2, 4);
+		builder.addSpawn(EntityTypes.SLIME, 1, 1, 1);
+		builder.addSpawn(EntityTypes.BOGGED, 50, 4, 4);
+		builder.addSpawn(EntityTypes.FROG, 10, 2, 5);
 		return builder.build();
 	}
 }

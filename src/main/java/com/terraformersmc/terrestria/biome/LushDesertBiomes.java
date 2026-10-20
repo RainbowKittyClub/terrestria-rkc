@@ -10,7 +10,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -70,16 +69,16 @@ public class LushDesertBiomes {
 	private static MobSpawnSettings createSpawnSettings() {
 		MobSpawnSettings.Builder builder = new net.minecraft.world.level.biome.MobSpawnSettings.Builder();
 		TerrestriaBiomes.addDefaultCaveSpawnEntries(builder);
-		builder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityTypes.RABBIT, 2, 3));
-		builder.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.SPIDER, 4, 4));
-		builder.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.SKELETON, 4, 4));
-		builder.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.CREEPER, 4, 4));
-		builder.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.SLIME, 4, 4));
-		builder.addSpawn(MobCategory.MONSTER,  10, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 1, 4));
-		builder.addSpawn(MobCategory.MONSTER,   5, new MobSpawnSettings.SpawnerData(EntityTypes.WITCH, 1, 1));
-		builder.addSpawn(MobCategory.MONSTER,  19, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE, 4, 4));
-		builder.addSpawn(MobCategory.MONSTER,   1, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE_VILLAGER, 1, 1));
-		builder.addSpawn(MobCategory.MONSTER,  80, new MobSpawnSettings.SpawnerData(EntityTypes.HUSK, 4, 4));
+		builder.addSpawn(EntityTypes.RABBIT, 4, 2, 3);
+		builder.addSpawn(EntityTypes.SPIDER, 100, 4, 4);
+		builder.addSpawn(EntityTypes.SKELETON, 100, 4, 4);
+		builder.addSpawn(EntityTypes.CREEPER, 100, 4, 4);
+		builder.addSpawn(EntityTypes.SLIME, 100, 4, 4);
+		builder.addSpawn(EntityTypes.ENDERMAN, 10, 1, 4);
+		builder.addSpawn(EntityTypes.WITCH, 5, 1, 1);
+		builder.addSpawn(EntityTypes.ZOMBIE, 19, 4, 4);
+		builder.addSpawn(EntityTypes.ZOMBIE_VILLAGER, 1, 1, 1);
+		builder.addSpawn(EntityTypes.HUSK, 80, 4, 4);
 		return builder.build();
 	}
 }
