@@ -12,6 +12,7 @@ group = project.maven_group
 apply from: 'https://raw.githubusercontent.com/TerraformersMC/GradleScripts/3.2/ferry-mpp.gradle'
 
 repositories {
+	mavenLocal()
 	maven {
 		name = 'TerraformersMC'
 		url = 'https://maven.terraformersmc.com/'
