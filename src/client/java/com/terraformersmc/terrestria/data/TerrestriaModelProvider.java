@@ -488,7 +488,7 @@ public class TerrestriaModelProvider extends FabricModelProvider {
 		generator.registerTopSoil(dirtBlocks.myceliumBlock(), myceliumTexture, blockStateVariant);
 		*/
 		// podzol
-		Identifier podzolTextureId = TexturedModel.CUBE_TOP_BOTTOM
+		Identifier podzolTextureId = TexturedModel.CUBE_BOTTOM_TOP
 				.get(Objects.requireNonNull(dirtBlocks.podzolBlock()))
 				.updateTextures(textures -> textures
 						.put(TextureSlot.BOTTOM, dirtTextureId)
