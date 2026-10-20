@@ -8,9 +8,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 
-public class SurfaceLevelFilterPlacementModifier extends PlacementFilter {
+public class SurfaceLevelFilterPlacementModifier implements PlacementFilter {
 	public static final MapCodec<SurfaceLevelFilterPlacementModifier> MODIFIER_CODEC =
 			RecordCodecBuilder.mapCodec(instance -> instance.group(
 					Heightmap.Types.CODEC.fieldOf("heightmap").forGetter(arg -> arg.heightmap),
@@ -32,13 +31,13 @@ public class SurfaceLevelFilterPlacementModifier extends PlacementFilter {
 	}
 
 	@Override
-	protected boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos) {
+	public boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos) {
 		long l = context.getHeight(this.heightmap, pos.getX(), pos.getZ());
 		return this.min <= l && this.max >= l;
 	}
 
 	@Override
-	public PlacementModifierType<?> type() {
+	public MapCodec<SurfaceLevelFilterPlacementModifier> codec() {
 		return TerrestriaPlacementModifierType.SURFACE_LEVEL_FILTER;
 	}
 }
