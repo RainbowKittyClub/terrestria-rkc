@@ -18,7 +18,6 @@ import com.terraformersmc.terrestria.init.helpers.WoodBlocks;
 import com.terraformersmc.terrestria.init.helpers.WoodColors;
 import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.random.WeightedList;
@@ -241,9 +240,9 @@ public class TerrestriaBlocks {
 	private static void addFlattenables() {
 		Objects.requireNonNull(ANDISOL.dirtPathBlock());
 
-		FlattenableBlockRegistry.register(ANDISOL.dirtBlock(), ANDISOL.dirtPathBlock().defaultBlockState());
-		FlattenableBlockRegistry.register(ANDISOL.grassBlock(), ANDISOL.dirtPathBlock().defaultBlockState());
-		FlattenableBlockRegistry.register(ANDISOL.podzolBlock(), ANDISOL.dirtPathBlock().defaultBlockState());
+		BlockTransformerHelper.registerFlattening(ANDISOL.dirtBlock(), ANDISOL.dirtPathBlock().defaultBlockState());
+		BlockTransformerHelper.registerFlattening(ANDISOL.grassBlock(), ANDISOL.dirtPathBlock().defaultBlockState());
+		BlockTransformerHelper.registerFlattening(ANDISOL.podzolBlock(), ANDISOL.dirtPathBlock().defaultBlockState());
 	}
 
 	private static void addStrippables() {
