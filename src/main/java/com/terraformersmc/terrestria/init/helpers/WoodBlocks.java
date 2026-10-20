@@ -84,9 +84,9 @@ public class WoodBlocks {
 		trapdoor = TerrestriaRegistry.register(name + "_trapdoor", settings -> new TrapDoorBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR).mapColor(colors.planks));
 		shelf = TerrestriaRegistry.register(name + "_shelf", ShelfBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SHELF).mapColor(colors.planks));
 		sign = TerrestriaRegistry.registerSignBlock(name + "_sign", settings -> new StandingSignBlock(woodType, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN).mapColor(colors.planks));
-		wallSign = TerrestriaRegistry.registerSignBlock(name + "_wall_sign", settings -> new WallSignBlock(woodType, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(colors.planks).overrideLootTable(sign.getLootTable()));
+		wallSign = TerrestriaRegistry.registerSignBlock(name + "_wall_sign", settings -> new WallSignBlock(woodType, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN).mapColor(colors.planks).overrideLootTable(sign.getLootTable()).overrideDescription(sign.getDescriptionId()));
 		hangingSign = TerrestriaRegistry.registerSignBlock(name + "_hanging_sign", settings -> new CeilingHangingSignBlock(woodType, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN).mapColor(colors.planks));
-		wallHangingSign = TerrestriaRegistry.registerSignBlock(name + "_wall_hanging_sign", settings -> new WallHangingSignBlock(woodType, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(colors.planks).overrideLootTable(hangingSign.getLootTable()));
+		wallHangingSign = TerrestriaRegistry.registerSignBlock(name + "_wall_hanging_sign", settings -> new WallHangingSignBlock(woodType, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN).mapColor(colors.planks).overrideLootTable(hangingSign.getLootTable()).overrideDescription(hangingSign.getDescriptionId()));
 
 		// register natural and stripped blocks
 
