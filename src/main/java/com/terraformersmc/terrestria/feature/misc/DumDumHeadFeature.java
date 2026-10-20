@@ -1,6 +1,6 @@
 package com.terraformersmc.terrestria.feature.misc;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.terraformersmc.terrestria.init.TerrestriaBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,27 +9,24 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class DumDumHeadFeature extends Feature<NoneFeatureConfiguration> {
+public record DumDumHeadFeature() implements Feature {
+	public static final MapCodec<DumDumHeadFeature> CODEC = MapCodec.unit(DumDumHeadFeature::new);
 	private static final BlockState PRIMARY_BLOCK = TerrestriaBlocks.VOLCANIC_ROCK.plain.full.defaultBlockState();
 	private static final BlockState MOSS_BLOCK = TerrestriaBlocks.VOLCANIC_ROCK.mossyCobblestone.full.defaultBlockState();
 	private static final BlockState FEATURE_BLOCK = TerrestriaBlocks.VOLCANIC_ROCK.smooth.full.defaultBlockState();
 
-	public DumDumHeadFeature(Codec<NoneFeatureConfiguration> configCodec) {
-		super(configCodec);
+	@Override
+	public MapCodec<DumDumHeadFeature> codec() {
+		return CODEC;
 	}
 
 	@Override
-	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-		WorldGenLevel level = context.level();
-		RandomSource random = context.random();
-		BlockPos blockPos = context.origin();
-
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos blockPos) {
 		// Check that we won't pass build height
 		if (blockPos.getY() + 8 > level.getMaxY() || blockPos.getY() < level.getMinY()) {
 			return false;

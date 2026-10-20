@@ -2,6 +2,8 @@ package com.terraformersmc.terrestria.init;
 
 import com.google.common.collect.ImmutableList;
 import com.terraformersmc.terrestria.Terrestria;
+import com.terraformersmc.terrestria.feature.CattailFeature;
+import com.terraformersmc.terrestria.feature.misc.DumDumHeadFeature;
 import com.terraformersmc.terrestria.feature.tree.foliageplacers.*;
 import com.terraformersmc.terrestria.feature.tree.treeconfigs.QuarteredMegaTreeConfiguration;
 import com.terraformersmc.terrestria.feature.tree.treedecorators.DanglingLeavesTreeDecorator;
@@ -347,8 +349,8 @@ public class TerrestriaConfiguredFeatures {
 				belowTrunkProvider
 		).build());
 
-		TerrestriaRegistry.register(context, CATTAIL, TerrestriaFeatures.CATTAIL, new ProbabilityFeatureConfiguration(0.3F));
-		TerrestriaRegistry.register(context, DUM_DUM_HEAD, TerrestriaFeatures.DUM_DUM_HEAD, NoneFeatureConfiguration.INSTANCE);
+		context.register(CATTAIL, new CattailFeature(0.3F, TerrestriaBlocks.CATTAIL, TerrestriaBlocks.TALL_CATTAIL));
+		context.register(DUM_DUM_HEAD, new DumDumHeadFeature());
 	}
 
 
