@@ -49,7 +49,6 @@
       "com.terraformersmc.terrestria.data.TerrestriaDatagen"
     ]
   },
-  "accessWidener": "terrestria.accesswidener",
   "mixins": [
     "mixins.terrestria-common.json",
     "mixins.terrestria-common.pathing.json"
