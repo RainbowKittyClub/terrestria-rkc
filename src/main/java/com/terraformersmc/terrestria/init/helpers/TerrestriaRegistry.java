@@ -1,5 +1,6 @@
 package com.terraformersmc.terrestria.init.helpers;
 
+import com.mojang.serialization.MapCodec;
 import com.terraformersmc.terrestria.Terrestria;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,7 +15,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import org.jspecify.annotations.NullMarked;
@@ -112,14 +112,14 @@ public class TerrestriaRegistry {
 	 */
 
 	/**
-	 * Registers a feature.
+	 * Registers a feature type.
 	 *
-	 * @param name Name ({@link Identifier} path string) of the feature
-	 * @param feature {@link Feature} to be registered
-	 * @return Newly registered {@link Feature}
+	 * @param name Name ({@link Identifier} path string) of the feature type
+	 * @param codec {@link MapCodec} of the {@link Feature} type to be registered
+	 * @return Newly registered {@link MapCodec}
 	 */
-	public static <T extends Feature<FC>, FC extends FeatureConfiguration> T register(String name, T feature) {
-		return Registry.register(BuiltInRegistries.FEATURE, Identifier.fromNamespaceAndPath(Terrestria.MOD_ID, name), feature);
+	public static <F extends Feature> MapCodec<F> register(String name, MapCodec<F> codec) {
+		return Registry.register(BuiltInRegistries.FEATURE_TYPE, Identifier.fromNamespaceAndPath(Terrestria.MOD_ID, name), codec);
 	}
 
 	/**
