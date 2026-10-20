@@ -171,8 +171,8 @@ public class TerrestriaBlocks {
 		// Volcanic Island blocks
 
 		Block andisol = TerrestriaRegistry.register("andisol", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).mapColor(MapColor.COLOR_BLACK));
-		TerraformDirtPathBlock andisolDirtPath = TerrestriaRegistry.register("andisol_dirt_path", TerraformDirtPathBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT_PATH));
-		TerraformFarmlandBlock andisolFarmland = TerrestriaRegistry.register("andisol_farmland", TerraformFarmlandBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND).mapColor(MapColor.COLOR_BLACK));
+		TerraformDirtPathBlock andisolDirtPath = TerrestriaRegistry.register("andisol_dirt_path", settings -> new TerraformDirtPathBlock(andisol, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT_PATH));
+		TerraformFarmlandBlock andisolFarmland = TerrestriaRegistry.register("andisol_farmland", settings -> new TerraformFarmlandBlock(andisol, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND).mapColor(MapColor.COLOR_BLACK));
 		TerraformGrassBlock andisolGrassBlock = TerrestriaRegistry.register("andisol_grass_block", settings -> new BasaltGrassBlock(andisol, () -> Objects.requireNonNull(ANDISOL.dirtPathBlock()), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK));
 		TerraformSnowyBlock andisolPodzol = TerrestriaRegistry.register("andisol_podzol", TerraformSnowyBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.PODZOL));
 		ANDISOL = TerraformDirtRegistry.register(new DirtBlocks(andisol, andisolGrassBlock, andisolDirtPath, andisolPodzol, andisolFarmland));
