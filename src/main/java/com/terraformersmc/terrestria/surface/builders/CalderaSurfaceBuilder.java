@@ -35,39 +35,11 @@ public class CalderaSurfaceBuilder extends BiolithSurfaceBuilder {
 	public void generate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
 		int surfaceNoise = (int) (4.6D * CALDERA_NOISE.sample(x * 0.05D, z * 0.05D));
 		int inBiomeDistance = BiomePerimeters.getOrCreateInstance(biome, 80).getPerimeterDistance(biomeAccess, new BlockPos.MutableBlockPos(x, RIM_HEIGHT, z));
-		int top;
 
 		// Re-sample vHeight so we match the surface even when we're in or abutting watery biomes.
 		vHeight = chunk.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x & 0xf, z & 0xf);
 
-		if (inBiomeDistance <= 16) {
-			// Slope (up?) to rim
-			top = vHeight + (RIM_HEIGHT + surfaceNoise - vHeight) * inBiomeDistance / 16;
-		} else if (inBiomeDistance < 32) {
-			// Across the rim
-			top = RIM_HEIGHT + surfaceNoise;
-		} else if (inBiomeDistance < 48) {
-			// Slope down to caldera lake
-			top = RIM_HEIGHT + surfaceNoise - 24 * (inBiomeDistance - 32) / 16;
-		} else if (inBiomeDistance < 72) {
-			// Lake shore down to lake bottom
-			if (inBiomeDistance < 49) {
-				top = RIM_HEIGHT - 24;
-			} else if (inBiomeDistance < 53) {
-				top = RIM_HEIGHT - 25;
-			} else if (inBiomeDistance < 56) {
-				top = RIM_HEIGHT - 26;
-			} else if (inBiomeDistance < 58) {
-				top = RIM_HEIGHT - 27;
-			} else if (inBiomeDistance < 68) {
-				top = RIM_HEIGHT - 38 + (68 - inBiomeDistance);
-			} else {
-				top = RIM_HEIGHT - 39 + surfaceNoise;
-			}
-		} else {
-			// Lake bottom
-			top = RIM_HEIGHT - 40 + surfaceNoise;
-		}
+		int top = getTop(inBiomeDistance, surfaceNoise, vHeight);
 
 		// Update the column with our overrides.
 		for (int y = 0; y <= Math.max(Math.max(top, vHeight), LAKE_LEVEL); y++) {
@@ -105,6 +77,54 @@ public class CalderaSurfaceBuilder extends BiolithSurfaceBuilder {
 					column.setBlock(y, Blocks.AIR.defaultBlockState());
 				}
 			}
+		}
+	}
+
+	// Material rules now rewrite every block, so lay the lake sand again once they have run.
+	@Override
+	public void generateLate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel, int minSurfaceLevel) {
+		int inBiomeDistance = BiomePerimeters.getOrCreateInstance(biome, 80).getPerimeterDistance(biomeAccess, new BlockPos.MutableBlockPos(x, RIM_HEIGHT, z));
+		if (inBiomeDistance < 56) {
+			return;
+		}
+
+		int surfaceNoise = (int) (4.6D * CALDERA_NOISE.sample(x * 0.05D, z * 0.05D));
+		int top = getTop(inBiomeDistance, surfaceNoise, vHeight);
+		for (int y = Math.max(top - Math.abs(surfaceNoise), 0); y <= top; y++) {
+			if (!column.getBlock(y).is(Blocks.DEEPSLATE)) {
+				column.setBlock(y, beachMaterial);
+			}
+		}
+	}
+
+	private static int getTop(int inBiomeDistance, int surfaceNoise, int vHeight) {
+		if (inBiomeDistance <= 16) {
+			// Slope (up?) to rim
+			return vHeight + (RIM_HEIGHT + surfaceNoise - vHeight) * inBiomeDistance / 16;
+		} else if (inBiomeDistance < 32) {
+			// Across the rim
+			return RIM_HEIGHT + surfaceNoise;
+		} else if (inBiomeDistance < 48) {
+			// Slope down to caldera lake
+			return RIM_HEIGHT + surfaceNoise - 24 * (inBiomeDistance - 32) / 16;
+		} else if (inBiomeDistance < 72) {
+			// Lake shore down to lake bottom
+			if (inBiomeDistance < 49) {
+				return RIM_HEIGHT - 24;
+			} else if (inBiomeDistance < 53) {
+				return RIM_HEIGHT - 25;
+			} else if (inBiomeDistance < 56) {
+				return RIM_HEIGHT - 26;
+			} else if (inBiomeDistance < 58) {
+				return RIM_HEIGHT - 27;
+			} else if (inBiomeDistance < 68) {
+				return RIM_HEIGHT - 38 + (68 - inBiomeDistance);
+			} else {
+				return RIM_HEIGHT - 39 + surfaceNoise;
+			}
+		} else {
+			// Lake bottom
+			return RIM_HEIGHT - 40 + surfaceNoise;
 		}
 	}
 }
