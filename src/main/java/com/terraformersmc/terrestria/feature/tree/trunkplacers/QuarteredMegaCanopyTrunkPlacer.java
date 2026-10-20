@@ -6,11 +6,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.terraformersmc.terrestria.init.TerrestriaTrunkPlacerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.jspecify.annotations.NullMarked;
 
@@ -21,10 +23,10 @@ import java.util.function.BiConsumer;
 @NullMarked
 public class QuarteredMegaCanopyTrunkPlacer extends MegaTrunkPlacer {
 	public static final MapCodec<QuarteredMegaCanopyTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(quarteredMegaCanopyTrunkPlacerInstance ->
-			trunkPlacerParts(quarteredMegaCanopyTrunkPlacerInstance).apply(quarteredMegaCanopyTrunkPlacerInstance, QuarteredMegaCanopyTrunkPlacer::new));
+			megaTrunkPlacerParts(quarteredMegaCanopyTrunkPlacerInstance).apply(quarteredMegaCanopyTrunkPlacerInstance, QuarteredMegaCanopyTrunkPlacer::new));
 
-	public QuarteredMegaCanopyTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
+	public QuarteredMegaCanopyTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, Holder<BlockStateProvider> quarteredTrunkProvider, Holder<BlockStateProvider> rootsProvider) {
+		super(baseHeight, firstRandomHeight, secondRandomHeight, quarteredTrunkProvider, rootsProvider);
 	}
 
 	@Override

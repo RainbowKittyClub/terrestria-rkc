@@ -5,11 +5,9 @@ import com.terraformersmc.terrestria.Terrestria;
 import com.terraformersmc.terrestria.feature.CattailFeature;
 import com.terraformersmc.terrestria.feature.misc.DumDumHeadFeature;
 import com.terraformersmc.terrestria.feature.tree.foliageplacers.*;
-import com.terraformersmc.terrestria.feature.tree.treeconfigs.QuarteredMegaTreeConfiguration;
 import com.terraformersmc.terrestria.feature.tree.treedecorators.DanglingLeavesTreeDecorator;
 import com.terraformersmc.terrestria.feature.tree.treedecorators.SakuraTreeDecorator;
 import com.terraformersmc.terrestria.feature.tree.trunkplacers.*;
-import com.terraformersmc.terrestria.init.helpers.TerrestriaRegistry;
 import com.terraformersmc.terrestria.init.helpers.WoodBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -29,13 +27,11 @@ import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
@@ -175,7 +171,7 @@ public class TerrestriaConfiguredFeatures {
 				12, 19
 		).build());
 
-		TerrestriaRegistry.register(context, MEGA_HEMLOCK_TREE, TerrestriaFeatures.QUARTERED_MEGA_TREE, giantSpruceOf(
+		context.register(MEGA_HEMLOCK_TREE, giantSpruceOf(
 				TerrestriaBlocks.HEMLOCK,
 				TerrestriaBlocks.HEMLOCK_SAPLING.defaultBlockState(),
 				belowTrunkProvider,
@@ -184,7 +180,7 @@ public class TerrestriaConfiguredFeatures {
 				1, 11
 		).build());
 
-		TerrestriaRegistry.register(context, MEGA_REDWOOD_TREE, TerrestriaFeatures.QUARTERED_MEGA_TREE, giantSpruceOf(
+		context.register(MEGA_REDWOOD_TREE, giantSpruceOf(
 				TerrestriaBlocks.REDWOOD,
 				TerrestriaBlocks.REDWOOD_SAPLING.defaultBlockState(),
 				belowTrunkProvider,
@@ -239,18 +235,16 @@ public class TerrestriaConfiguredFeatures {
 				belowTrunkProvider
 		).build());
 
-		TerrestriaRegistry.register(context, RAINBOW_EUCALYPTUS_TREE, TerrestriaFeatures.QUARTERED_MEGA_TREE, new QuarteredMegaTreeConfiguration.QuarteredMegaTreeConfigurationBuilder(
-				new TreeConfiguration.TreeConfigurationBuilder(
-						SimpleStateProvider.simple(TerrestriaBlocks.RAINBOW_EUCALYPTUS.log),
-						new QuarteredMegaCanopyTrunkPlacer(4, 2, 1),
-						SimpleStateProvider.simple(TerrestriaBlocks.RAINBOW_EUCALYPTUS.leaves),
-						new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-						new TwoLayersFeatureSize(1, 1, 1),
-						belowTrunkProvider
-				).ignoreVines(),
-				SimpleStateProvider.simple(TerrestriaBlocks.RAINBOW_EUCALYPTUS.quarterLog),
-				SimpleStateProvider.simple(TerrestriaBlocks.RAINBOW_EUCALYPTUS.wood)
-		).build());
+		context.register(RAINBOW_EUCALYPTUS_TREE, new TreeFeature.Builder(
+				BlockStateProvider.of(TerrestriaBlocks.RAINBOW_EUCALYPTUS.log),
+				new QuarteredMegaCanopyTrunkPlacer(4, 2, 1,
+						BlockStateProvider.holderOf(TerrestriaBlocks.RAINBOW_EUCALYPTUS.quarterLog),
+						BlockStateProvider.holderOf(TerrestriaBlocks.RAINBOW_EUCALYPTUS.wood)),
+				BlockStateProvider.of(TerrestriaBlocks.RAINBOW_EUCALYPTUS.leaves),
+				new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
+				new TwoLayersFeatureSize(1, 1, 1),
+				belowTrunkProvider
+		).ignoreVines().build());
 
 		context.register(SMALL_RAINBOW_EUCALYPTUS_TREE, new TreeFeature.Builder(
 				BlockStateProvider.of(TerrestriaBlocks.RAINBOW_EUCALYPTUS.log),
@@ -297,18 +291,16 @@ public class TerrestriaConfiguredFeatures {
 				belowTrunkProvider
 		).build());
 
-		TerrestriaRegistry.register(context, MEGA_CYPRESS_TREE, TerrestriaFeatures.QUARTERED_MEGA_TREE, new QuarteredMegaTreeConfiguration.QuarteredMegaTreeConfigurationBuilder(
-				new TreeConfiguration.TreeConfigurationBuilder(
-						SimpleStateProvider.simple(TerrestriaBlocks.CYPRESS.log),
-						new QuarteredMegaCanopyTrunkPlacer(5, 2, 1),
-						SimpleStateProvider.simple(TerrestriaBlocks.CYPRESS.leaves),
-						new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
-						new TwoLayersFeatureSize(1, 1, 1),
-						belowTrunkProvider
-				).ignoreVines(),
-				SimpleStateProvider.simple(TerrestriaBlocks.CYPRESS.quarterLog),
-				SimpleStateProvider.simple(TerrestriaBlocks.CYPRESS.wood)
-		).build());
+		context.register(MEGA_CYPRESS_TREE, new TreeFeature.Builder(
+				BlockStateProvider.of(TerrestriaBlocks.CYPRESS.log),
+				new QuarteredMegaCanopyTrunkPlacer(5, 2, 1,
+						BlockStateProvider.holderOf(TerrestriaBlocks.CYPRESS.quarterLog),
+						BlockStateProvider.holderOf(TerrestriaBlocks.CYPRESS.wood)),
+				BlockStateProvider.of(TerrestriaBlocks.CYPRESS.leaves),
+				new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(2), 2),
+				new TwoLayersFeatureSize(1, 1, 1),
+				belowTrunkProvider
+		).ignoreVines().build());
 
 		context.register(WILLOW_TREE, canopyOf(
 				TerrestriaBlocks.WILLOW,
@@ -441,22 +433,20 @@ public class TerrestriaConfiguredFeatures {
 			).ignoreVines();
 	}
 
-	private static QuarteredMegaTreeConfiguration.QuarteredMegaTreeConfigurationBuilder giantSpruceOf(WoodBlocks woodBlocks, BlockState sapling, BlockStateProvider belowTrunkProvider, int minHeight, int extraRandomHeight1, int extraRandomHeight2, int minLeavesRadius, int maxLeavesRadius, int minBareHeight, int maxBareHeight) {
+	private static TreeFeature.Builder giantSpruceOf(WoodBlocks woodBlocks, BlockState sapling, Holder<BlockStateProvider> belowTrunkProvider, int minHeight, int extraRandomHeight1, int extraRandomHeight2, int minLeavesRadius, int maxLeavesRadius, int minBareHeight, int maxBareHeight) {
 		if (!woodBlocks.hasQuarterLog()) {
 			throw new IllegalArgumentException("giantSpruceOf() requires WoodBlocks with defined Quarter Logs: " + woodBlocks.getName());
 		}
-		return new QuarteredMegaTreeConfiguration.QuarteredMegaTreeConfigurationBuilder(
-				new TreeConfiguration.TreeConfigurationBuilder(
-						SimpleStateProvider.simple(woodBlocks.log),
-						new MegaTrunkPlacer(minHeight, extraRandomHeight1, extraRandomHeight2),
-						SimpleStateProvider.simple(woodBlocks.leaves),
-						new PredictiveSpruceFoliagePlacer(UniformInt.of(minLeavesRadius, maxLeavesRadius), UniformInt.of(0, 2), UniformInt.of(minBareHeight, maxBareHeight)),
-						new TwoLayersFeatureSize(2, 1, 2),
-						belowTrunkProvider
-				).ignoreVines(),
-				SimpleStateProvider.simple(woodBlocks.quarterLog),
-				SimpleStateProvider.simple(woodBlocks.wood)
-		);
+		return new TreeFeature.Builder(
+				BlockStateProvider.of(woodBlocks.log),
+				new MegaTrunkPlacer(minHeight, extraRandomHeight1, extraRandomHeight2,
+						BlockStateProvider.holderOf(woodBlocks.quarterLog),
+						BlockStateProvider.holderOf(woodBlocks.wood)),
+				BlockStateProvider.of(woodBlocks.leaves),
+				new PredictiveSpruceFoliagePlacer(UniformInt.of(minLeavesRadius, maxLeavesRadius), UniformInt.of(0, 2), UniformInt.of(minBareHeight, maxBareHeight)),
+				new TwoLayersFeatureSize(2, 1, 2),
+				belowTrunkProvider
+		).ignoreVines();
 	}
 
 	private static ResourceKey<Feature> resourceKey(String path) {

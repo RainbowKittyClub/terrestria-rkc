@@ -1,14 +1,15 @@
 package com.terraformersmc.terrestria.feature.tree.trunkplacers;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.Products.P5;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.terraformersmc.terraform.wood.api.block.QuarterLogBlock;
 import com.terraformersmc.terrestria.Terrestria;
-import com.terraformersmc.terrestria.feature.tree.treeconfigs.QuarteredMegaTreeConfiguration;
 import com.terraformersmc.terrestria.init.TerrestriaTrunkPlacerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
@@ -27,11 +28,24 @@ import java.util.function.BiConsumer;
 @NullMarked
 public class MegaTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<MegaTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		trunkPlacerParts(instance).apply(instance, MegaTrunkPlacer::new)
+		megaTrunkPlacerParts(instance).apply(instance, MegaTrunkPlacer::new)
 	);
 
-	public MegaTrunkPlacer(int height, int randomHeight, int extraRandomHeight) {
+	protected final Holder<BlockStateProvider> quarteredTrunkProvider;
+	protected final Holder<BlockStateProvider> rootsProvider;
+
+	protected static <P extends MegaTrunkPlacer> P5<RecordCodecBuilder.Mu<P>, Integer, Integer, Integer, Holder<BlockStateProvider>, Holder<BlockStateProvider>> megaTrunkPlacerParts(RecordCodecBuilder.Instance<P> instance) {
+		return trunkPlacerParts(instance).and(instance.group(
+			BlockStateProvider.CODEC.fieldOf("quartered_trunk_provider").forGetter(placer -> placer.quarteredTrunkProvider),
+			BlockStateProvider.CODEC.fieldOf("roots_provider").forGetter(placer -> placer.rootsProvider)
+		));
+	}
+
+	public MegaTrunkPlacer(int height, int randomHeight, int extraRandomHeight, Holder<BlockStateProvider> quarteredTrunkProvider, Holder<BlockStateProvider> rootsProvider) {
 		super(height, randomHeight, extraRandomHeight);
+
+		this.quarteredTrunkProvider = quarteredTrunkProvider;
+		this.rootsProvider = rootsProvider;
 	}
 
 	protected TrunkPlacerType<?> type() {
@@ -56,20 +70,14 @@ public class MegaTrunkPlacer extends TrunkPlacer {
 			setLog(level, mutable, replacer, getState(level, random, mutable, tree, QuarterLogBlock.BarkSide.SOUTHWEST), pos, 0, i, 1);
 		}
 
-		BlockStateProvider rootsProvider = tree.trunkProvider().value();
-
-		if (tree instanceof QuarteredMegaTreeConfiguration) {
-			rootsProvider = ((QuarteredMegaTreeConfiguration) tree).rootsProvider;
-		}
-
-		growRoots(replacer, level, pos.mutable(), random, rootsProvider);
+		growRoots(replacer, level, pos.mutable(), random, this.rootsProvider.value());
 
 		return ImmutableList.of(new FoliagePlacer.FoliageAttachment(pos.above(trunkHeight), 0, true));
 	}
 
-	private static BlockState getState(WorldGenLevel level, RandomSource random, BlockPos pos, TreeFeature tree, QuarterLogBlock.BarkSide side) {
-		if (tree instanceof QuarteredMegaTreeConfiguration && Terrestria.getConfigManager().getGeneralConfig().areQuarterLogsEnabled()) {
-			return ((QuarteredMegaTreeConfiguration) tree).quarteredTrunkProvider.getState(level, random, pos).setValue(QuarterLogBlock.BARK_SIDE, side);
+	private BlockState getState(WorldGenLevel level, RandomSource random, BlockPos pos, TreeFeature tree, QuarterLogBlock.BarkSide side) {
+		if (Terrestria.getConfigManager().getGeneralConfig().areQuarterLogsEnabled()) {
+			return this.quarteredTrunkProvider.value().getState(level, random, pos).setValue(QuarterLogBlock.BARK_SIDE, side);
 		} else {
 			return tree.trunkProvider().value().getState(level, random, pos);
 		}
