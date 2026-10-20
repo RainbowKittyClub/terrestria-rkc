@@ -32,7 +32,7 @@ public class TerrestriaBlockTagsProvider extends FabricTagsProvider.BlockTagsPro
 		tag(BlockTags.AZALEA_ROOT_REPLACEABLE)
 				.add(TerrestriaBlockIds.VOLCANIC_ROCK.plain().full());
 
-		tag(BlockTags.CONVERTABLE_TO_MUD)
+		tag(BlockTags.CONVERTIBLE_TO_MUD)
 				.add(TerrestriaBlockIds.ANDISOL.dirtBlock());
 
 		tag(BlockTags.EDIBLE_FOR_SHEEP)
@@ -119,7 +119,7 @@ public class TerrestriaBlockTagsProvider extends FabricTagsProvider.BlockTagsPro
 		tag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK)
 				.add(dirtBlock.podzolBlock());
 
-		tag(BlockTags.CONVERTABLE_TO_MUD)
+		tag(BlockTags.CONVERTIBLE_TO_MUD)
 				.add(dirtBlock.dirtBlock());
 
 		tag(BlockTags.ENDERMAN_HOLDABLE)
