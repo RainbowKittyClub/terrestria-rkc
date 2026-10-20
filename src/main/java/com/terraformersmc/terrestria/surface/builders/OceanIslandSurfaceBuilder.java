@@ -37,8 +37,9 @@ public class OceanIslandSurfaceBuilder extends BiolithSurfaceBuilder {
 		this.underwaterMaterial = underwaterMaterial;
 	}
 
+	// Material rules now rewrite every block, so build after them or they paint over this surface.
 	@Override
-	public void generate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
+	public void generateLate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel, int minSurfaceLevel) {
 		RandomState randomState = SurfaceRandomState.current();
 		if (randomState == null) {
 			throw new IllegalStateException("Volcanic island surface generated outside MaterialSystem.buildSurface()...");
@@ -66,7 +67,8 @@ public class OceanIslandSurfaceBuilder extends BiolithSurfaceBuilder {
 		top = vHeight + delta;
 		for (int y = 0; y <= top; y++) {
 			BlockState originalState = column.getBlock(y);
-			if (originalState.is(Blocks.STONE) || originalState.is(Blocks.WATER) || originalState.isAir()) {
+			// The material rules have already laid gravel on the old sea floor.
+			if (originalState.is(Blocks.STONE) || originalState.is(Blocks.GRAVEL) || originalState.is(Blocks.WATER) || originalState.isAir()) {
 				if (top > seaLevel + 9) {
 					// In this case we are generating island "inland".
 					if (y < top - 3) {

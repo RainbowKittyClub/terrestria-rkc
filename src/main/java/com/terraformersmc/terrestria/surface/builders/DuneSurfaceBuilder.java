@@ -21,8 +21,9 @@ public class DuneSurfaceBuilder extends BiolithSurfaceBuilder {
 		this.topMaterial = topMaterial;
 	}
 
+	// Material rules now rewrite every block, so build after them or they paint over this surface.
 	@Override
-	public void generate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
+	public void generateLate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel, int minSurfaceLevel) {
 		vHeight = chunk.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x & 0xf, z & 0xf);
 		int y = vHeight - 8;
 
