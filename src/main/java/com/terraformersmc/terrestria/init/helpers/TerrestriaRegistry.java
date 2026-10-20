@@ -82,7 +82,21 @@ public class TerrestriaRegistry {
 	 * @return Newly created {@link BlockItem}
 	 */
 	public static BlockItem registerBlockItem(String name, Block block) {
-		return register(name, properties -> new BlockItem(block, properties), new Item.Properties().useBlockDescriptionPrefix());
+		return registerBlockItem(name, block, new Item.Properties());
+	}
+
+	/**
+	 * Registers a block item with the given properties and associates it with its block.
+	 * <br/>
+	 * This method applies {@code properties.useBlockDescriptionPrefix()}.
+	 *
+	 * @param name Name ({@link Identifier} path string) of the block item
+	 * @param block {@link Block} to associate to the block item
+	 * @param properties {@link Item.Properties} of the block item
+	 * @return Newly created {@link BlockItem}
+	 */
+	public static BlockItem registerBlockItem(String name, Block block, Item.Properties properties) {
+		return register(name, settings -> new BlockItem(block, settings), properties.useBlockDescriptionPrefix());
 	}
 
 	/**
