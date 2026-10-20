@@ -37,6 +37,7 @@ public class OutbackBiomes {
 						.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_BADLANDS))
 						.set(EnvironmentAttributes.SNOW_GOLEM_MELTS, true)
 						.set(EnvironmentAttributes.WATER_FOG_COLOR, ARGB.vector3fFromRGB24(0x50533))
+						.set(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.03F)
 						.build()
 				)
 				.build();
@@ -68,7 +69,6 @@ public class OutbackBiomes {
 		builder.addSpawn(EntityTypes.HORSE, 1, 2, 6);
 		builder.addSpawn(EntityTypes.DONKEY, 1, 1, 1);
 		builder.addSpawn(EntityTypes.ARMADILLO, 10, 2, 3);
-		builder.creatureGenerationProbability(0.03F);
 		return builder.build();
 	}
 }
