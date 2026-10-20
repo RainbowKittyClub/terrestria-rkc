@@ -23,7 +23,7 @@ public class TerrestriaDynamicRegistryProvider extends FabricDynamicRegistryProv
 	}
 
 	public static void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, TerrestriaConfiguredFeatures::bootstrap);
+		registryBuilder.add(Registries.FEATURE, TerrestriaConfiguredFeatures::bootstrap);
 		registryBuilder.add(Registries.PLACED_FEATURE, TerrestriaPlacedFeatures::bootstrap);
 		registryBuilder.add(Registries.BIOME, TerrestriaBiomes::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, TerrestriaVillagerTrades::bootstrap);
@@ -31,7 +31,7 @@ public class TerrestriaDynamicRegistryProvider extends FabricDynamicRegistryProv
 
 	@Override
 	public void configure(HolderLookup.Provider registries, Entries entries) {
-		addAll(entries, registries.lookupOrThrow(Registries.CONFIGURED_FEATURE), Terrestria.MOD_ID);
+		addAll(entries, registries.lookupOrThrow(Registries.FEATURE), Terrestria.MOD_ID);
 		addAll(entries, registries.lookupOrThrow(Registries.PLACED_FEATURE), Terrestria.MOD_ID);
 		addAll(entries, registries.lookupOrThrow(Registries.BIOME), Terrestria.MOD_ID);
 		addAll(entries, registries.lookupOrThrow(Registries.VILLAGER_TRADE), Terrestria.MOD_ID);

@@ -4,7 +4,6 @@ import com.terraformersmc.terrestria.Terrestria;
 import com.terraformersmc.terrestria.init.helpers.SurfaceLevelFilterPlacementModifier;
 import com.terraformersmc.terrestria.init.helpers.TerrestriaRegistry;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -18,7 +17,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 
 public class TerrestriaPlacedFeatures {
@@ -82,8 +81,6 @@ public class TerrestriaPlacedFeatures {
 	public static final ResourceKey<PlacedFeature> RARE_BRYCE_TREES = resourceKey("rare_bryce_trees");
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-		HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-
 		// For things without saplings:
 		final BlockPredicate ON_FERTILE_SOIL = BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.SUPPORTS_VEGETATION);
 		final BlockPredicate ON_INFERTILE_SOIL = BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), BlockTags.SUPPORTS_DRY_VEGETATION);
@@ -114,7 +111,7 @@ public class TerrestriaPlacedFeatures {
 				Util.copyAndAdd(
 					VegetationPlacements.worldSurfaceSquaredWithCount(12),
 					CountPlacement.of(32),
-					RandomOffsetPlacement.ofTriangle(15, 3),
+					OffsetPlacement.ofTriangle(15, 3),
 					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 				));
 
@@ -122,7 +119,7 @@ public class TerrestriaPlacedFeatures {
 				Util.copyAndAdd(
 					VegetationPlacements.worldSurfaceSquaredWithCount(12),
 					CountPlacement.of(4),
-					RandomOffsetPlacement.ofTriangle(15, 3),
+					OffsetPlacement.ofTriangle(15, 3),
 					BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, ON_INFERTILE_SOIL))
 				));
 
@@ -130,7 +127,7 @@ public class TerrestriaPlacedFeatures {
 				Util.copyAndAdd(
 					VegetationPlacements.worldSurfaceSquaredWithCount(12),
 					CountPlacement.of(4),
-					RandomOffsetPlacement.ofTriangle(15, 3),
+					OffsetPlacement.ofTriangle(15, 3),
 					BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, ON_ANY_SOIL))
 				));
 
@@ -138,7 +135,7 @@ public class TerrestriaPlacedFeatures {
 				Util.copyAndAdd(
 					VegetationPlacements.worldSurfaceSquaredWithCount(6),
 					CountPlacement.of(32),
-					RandomOffsetPlacement.ofTriangle(15, 3),
+					OffsetPlacement.ofTriangle(15, 3),
 					BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, ON_FERTILE_SOIL))
 				));
 
@@ -146,7 +143,7 @@ public class TerrestriaPlacedFeatures {
 				Util.copyAndAdd(
 					VegetationPlacements.worldSurfaceSquaredWithCount(4),
 					CountPlacement.of(32),
-					RandomOffsetPlacement.ofTriangle(15, 3),
+					OffsetPlacement.ofTriangle(15, 3),
 					BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, ON_ANY_SOIL))
 				));
 
@@ -299,7 +296,7 @@ public class TerrestriaPlacedFeatures {
 				BiomeFilter.biome());
 	}
 
-	private static void registerTreeFeature(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, int count, BlockPredicateFilter blockPredicateFilter, ResourceKey<ConfiguredFeature<?, ?>> feature) {
+	private static void registerTreeFeature(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, int count, BlockPredicateFilter blockPredicateFilter, ResourceKey<Feature> feature) {
 		TerrestriaRegistry.register(registerable, key, feature,
 				PlacementUtils.countExtra(count, 0.1f, 1),
 				InSquarePlacement.spread(),
@@ -308,7 +305,7 @@ public class TerrestriaPlacedFeatures {
 				BiomeFilter.biome());
 	}
 
-	private static void registerTreeFeature(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, int count, int maxWaterDepth, BlockPredicateFilter blockPredicateFilter, ResourceKey<ConfiguredFeature<?, ?>> feature) {
+	private static void registerTreeFeature(BootstrapContext<PlacedFeature> registerable, ResourceKey<PlacedFeature> key, int count, int maxWaterDepth, BlockPredicateFilter blockPredicateFilter, ResourceKey<Feature> feature) {
 		TerrestriaRegistry.register(registerable, key, feature,
 				PlacementUtils.countExtra(count, 0.1f, 1),
 				InSquarePlacement.spread(),
