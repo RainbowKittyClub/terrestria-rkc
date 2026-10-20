@@ -15,7 +15,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.TallSeagrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
@@ -39,28 +38,28 @@ public class MegaTrunkPlacer extends TrunkPlacer {
 		return TerrestriaTrunkPlacerTypes.MEGA;
 	}
 
-	public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, int trunkHeight, BlockPos pos, TreeConfiguration treeFeatureConfig) {
+	public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> replacer, RandomSource random, int trunkHeight, BlockPos pos, TreeFeature tree) {
 		// Set the blocks below the trunk to dirt
 		BlockPos down = pos.below();
-		placeBelowTrunkBlock(level, replacer, random, down, treeFeatureConfig);
-		placeBelowTrunkBlock(level, replacer, random, down.east(), treeFeatureConfig);
-		placeBelowTrunkBlock(level, replacer, random, down.south(), treeFeatureConfig);
-		placeBelowTrunkBlock(level, replacer, random, down.south().east(), treeFeatureConfig);
+		placeBelowTrunkBlock(level, replacer, random, down, tree);
+		placeBelowTrunkBlock(level, replacer, random, down.east(), tree);
+		placeBelowTrunkBlock(level, replacer, random, down.south(), tree);
+		placeBelowTrunkBlock(level, replacer, random, down.south().east(), tree);
 
 		// Place the trunk
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
 		for(int i = 0; i < trunkHeight; ++i) {
-			setLog(level, mutable, replacer, getState(level, random, mutable, treeFeatureConfig, QuarterLogBlock.BarkSide.NORTHWEST), pos, 0, i, 0);
-			setLog(level, mutable, replacer, getState(level, random, mutable, treeFeatureConfig, QuarterLogBlock.BarkSide.NORTHEAST), pos, 1, i, 0);
-			setLog(level, mutable, replacer, getState(level, random, mutable, treeFeatureConfig, QuarterLogBlock.BarkSide.SOUTHEAST), pos, 1, i, 1);
-			setLog(level, mutable, replacer, getState(level, random, mutable, treeFeatureConfig, QuarterLogBlock.BarkSide.SOUTHWEST), pos, 0, i, 1);
+			setLog(level, mutable, replacer, getState(level, random, mutable, tree, QuarterLogBlock.BarkSide.NORTHWEST), pos, 0, i, 0);
+			setLog(level, mutable, replacer, getState(level, random, mutable, tree, QuarterLogBlock.BarkSide.NORTHEAST), pos, 1, i, 0);
+			setLog(level, mutable, replacer, getState(level, random, mutable, tree, QuarterLogBlock.BarkSide.SOUTHEAST), pos, 1, i, 1);
+			setLog(level, mutable, replacer, getState(level, random, mutable, tree, QuarterLogBlock.BarkSide.SOUTHWEST), pos, 0, i, 1);
 		}
 
-		BlockStateProvider rootsProvider = treeFeatureConfig.trunkProvider;
+		BlockStateProvider rootsProvider = tree.trunkProvider().value();
 
-		if (treeFeatureConfig instanceof QuarteredMegaTreeConfiguration) {
-			rootsProvider = ((QuarteredMegaTreeConfiguration) treeFeatureConfig).rootsProvider;
+		if (tree instanceof QuarteredMegaTreeConfiguration) {
+			rootsProvider = ((QuarteredMegaTreeConfiguration) tree).rootsProvider;
 		}
 
 		growRoots(replacer, level, pos.mutable(), random, rootsProvider);
@@ -68,11 +67,11 @@ public class MegaTrunkPlacer extends TrunkPlacer {
 		return ImmutableList.of(new FoliagePlacer.FoliageAttachment(pos.above(trunkHeight), 0, true));
 	}
 
-	private static BlockState getState(WorldGenLevel level, RandomSource random, BlockPos pos, TreeConfiguration config, QuarterLogBlock.BarkSide side) {
-		if (config instanceof QuarteredMegaTreeConfiguration && Terrestria.getConfigManager().getGeneralConfig().areQuarterLogsEnabled()) {
-			return ((QuarteredMegaTreeConfiguration) config).quarteredTrunkProvider.getState(level, random, pos).setValue(QuarterLogBlock.BARK_SIDE, side);
+	private static BlockState getState(WorldGenLevel level, RandomSource random, BlockPos pos, TreeFeature tree, QuarterLogBlock.BarkSide side) {
+		if (tree instanceof QuarteredMegaTreeConfiguration && Terrestria.getConfigManager().getGeneralConfig().areQuarterLogsEnabled()) {
+			return ((QuarteredMegaTreeConfiguration) tree).quarteredTrunkProvider.getState(level, random, pos).setValue(QuarterLogBlock.BARK_SIDE, side);
 		} else {
-			return config.trunkProvider.getState(level, random, pos);
+			return tree.trunkProvider().value().getState(level, random, pos);
 		}
 	}
 
