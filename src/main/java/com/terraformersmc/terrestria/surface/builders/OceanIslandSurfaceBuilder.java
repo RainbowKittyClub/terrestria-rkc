@@ -41,7 +41,7 @@ public class OceanIslandSurfaceBuilder extends BiolithSurfaceBuilder {
 	public void generate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
 		RandomState randomState = SurfaceRandomState.current();
 		if (randomState == null) {
-			throw new IllegalStateException("Volcanic island surface generated outside SurfaceSystem.buildSurface()...");
+			throw new IllegalStateException("Volcanic island surface generated outside MaterialSystem.buildSurface()...");
 		}
 		NormalNoise surface = randomState.getOrCreateNoise(Noises.SURFACE);
 
