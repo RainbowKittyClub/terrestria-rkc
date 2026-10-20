@@ -11,7 +11,7 @@ import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import static com.terraformersmc.terrestria.init.TerrestriaBiomes.addBasicFeatures;
@@ -38,7 +38,7 @@ public class DunesBiomes {
 	}
 
 	private static BiomeGenerationSettings createGenerationSettings(BootstrapContext<Biome> registerable) {
-		HolderGetter<ConfiguredWorldCarver<?>> configuredCarvers = registerable.lookup(Registries.CONFIGURED_CARVER);
+		HolderGetter<WorldCarver> configuredCarvers = registerable.lookup(Registries.CARVER);
 		HolderGetter<PlacedFeature> placedFeatures = registerable.lookup(Registries.PLACED_FEATURE);
 
 		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, configuredCarvers);
