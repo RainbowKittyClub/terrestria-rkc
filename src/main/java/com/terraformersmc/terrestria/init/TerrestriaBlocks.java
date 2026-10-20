@@ -152,7 +152,7 @@ public class TerrestriaBlocks {
 		TALL_CATTAIL = TerrestriaRegistry.register("tall_cattail", TallCattailBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_SEAGRASS));
 
 		// Saplings
-		BlockBehaviour.Properties saplingSettings = BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY);
+		BlockBehaviour.Properties saplingSettings = BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.POPPED);
 
 		BRYCE_SAPLING = TerrestriaRegistry.register("bryce_sapling", settings -> new TerraformDesertSaplingBlock(new TreeGrower("bryce", WeightedList.of(TerrestriaConfiguredFeatures.BRYCE_TREE), WeightedList.of(), WeightedList.of(), TerrestriaConfiguredFeatures.BRYCE_TREE), settings), saplingSettings);
 		CYPRESS_SAPLING = TerrestriaRegistry.register("cypress_sapling", settings -> new SaplingBlock(new TreeGrower("cypress", WeightedList.of(TerrestriaConfiguredFeatures.CYPRESS_TREE), WeightedList.of(TerrestriaConfiguredFeatures.MEGA_CYPRESS_TREE), WeightedList.of(), TerrestriaConfiguredFeatures.CYPRESS_TREE), settings), saplingSettings.mapColor(WoodColors.CYPRESS.leaves));
