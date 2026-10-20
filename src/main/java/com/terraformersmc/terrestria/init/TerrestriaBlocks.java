@@ -16,9 +16,9 @@ import com.terraformersmc.terrestria.init.helpers.StoneBlocks;
 import com.terraformersmc.terrestria.init.helpers.TerrestriaRegistry;
 import com.terraformersmc.terrestria.init.helpers.WoodBlocks;
 import com.terraformersmc.terrestria.init.helpers.WoodColors;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.random.WeightedList;
@@ -247,7 +247,7 @@ public class TerrestriaBlocks {
 	}
 
 	private static void addStrippables() {
-		StrippableBlockRegistry.register(SMALL_OAK_LOG, STRIPPED_SMALL_OAK_LOG);
+		BlockTransformerHelper.registerStripping(SMALL_OAK_LOG, STRIPPED_SMALL_OAK_LOG);
 	}
 
 	public static Boolean canSpawnOnLeaves(BlockState state, BlockGetter world, BlockPos pos, EntityType<?> type) {
