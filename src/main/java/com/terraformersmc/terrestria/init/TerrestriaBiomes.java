@@ -8,6 +8,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
@@ -140,9 +141,9 @@ public class TerrestriaBiomes {
 
 	public static EnvironmentAttributeMap.Builder createDefaultEnvironmentAttributes() {
 		return EnvironmentAttributeMap.builder()
-			.set(EnvironmentAttributes.WATER_FOG_COLOR, 0x50533)
-			.set(EnvironmentAttributes.SKY_COLOR, getSkyColor(0.2F))
-			.set(EnvironmentAttributes.FOG_COLOR, 0xC0D8FF);
+			.set(EnvironmentAttributes.WATER_FOG_COLOR, ARGB.vector3fFromRGB24(0x50533))
+			.set(EnvironmentAttributes.SKY_COLOR, ARGB.vector3fFromRGB24(getSkyColor(0.2F)))
+			.set(EnvironmentAttributes.FOG_COLOR, ARGB.vector3fFromRGB24(0xC0D8FF));
 	}
 
 	// Copied from Minecraft

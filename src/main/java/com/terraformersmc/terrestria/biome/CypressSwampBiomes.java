@@ -9,6 +9,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.attribute.modifier.FloatModifier;
@@ -39,7 +40,7 @@ public class CypressSwampBiomes {
 				.putAttributes(TerrestriaBiomes.createDefaultEnvironmentAttributes()
 						.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SWAMP))
 						.set(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true)
-						.set(EnvironmentAttributes.WATER_FOG_COLOR, 0x053305)
+						.set(EnvironmentAttributes.WATER_FOG_COLOR, ARGB.vector3fFromRGB24(0x053305))
 						.modify(EnvironmentAttributes.WATER_FOG_END_DISTANCE, FloatModifier.MULTIPLY, 0.85F)
 						.build()
 				)

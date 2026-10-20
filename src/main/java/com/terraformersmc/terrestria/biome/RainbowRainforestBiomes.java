@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
@@ -36,7 +37,7 @@ public class RainbowRainforestBiomes {
 				.putAttributes(TerrestriaBiomes.createDefaultEnvironmentAttributes()
 						.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE))
 						.set(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true)
-						.set(EnvironmentAttributes.WATER_FOG_COLOR, 0x50533)
+						.set(EnvironmentAttributes.WATER_FOG_COLOR, ARGB.vector3fFromRGB24(0x50533))
 						.build()
 				)
 				.build();
