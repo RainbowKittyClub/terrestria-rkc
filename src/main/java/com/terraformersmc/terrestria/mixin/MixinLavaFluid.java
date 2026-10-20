@@ -16,12 +16,12 @@ public class MixinLavaFluid {
 	@WrapOperation(method = "spreadTo",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/level/LevelAccessor;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+					target = "Lnet/minecraft/world/level/LevelAccessor;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z",
 					ordinal = 0
 			)
 	)
 	@SuppressWarnings("unused")
-	private boolean terrestria$generateVolcanicRock(LevelAccessor level, BlockPos pos, BlockState newState, int flags, Operation<Boolean> original) {
+	private boolean terrestria$generateVolcanicRock(LevelAccessor level, BlockPos pos, BlockState newState, Operation<Boolean> original) {
 		// This is the stone generation pathway; see also: MixinFluidBlock.
 
 		// Search immediately adjacent blocks for Volcanic Rock variants.
@@ -38,6 +38,6 @@ public class MixinLavaFluid {
 			}
 		}
 
-		return original.call(level, pos, newState, flags);
+		return original.call(level, pos, newState);
 	}
 }
