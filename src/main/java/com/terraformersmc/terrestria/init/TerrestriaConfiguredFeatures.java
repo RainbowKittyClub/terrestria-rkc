@@ -82,7 +82,6 @@ public class TerrestriaConfiguredFeatures {
 	public static final ResourceKey<Feature> DUM_DUM_HEAD = resourceKey("dum_dum_head");
 
 	public static void bootstrap(BootstrapContext<Feature> context) {
-		HolderGetter<Feature> configuredFeatures = context.lookup(Registries.FEATURE);
 		HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 		Holder<BlockStateProvider> belowTrunkProvider = context.lookup(Registries.BLOCK_STATE_PROVIDER).getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
 
