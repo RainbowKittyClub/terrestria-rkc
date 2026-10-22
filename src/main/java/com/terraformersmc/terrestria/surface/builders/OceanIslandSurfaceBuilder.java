@@ -67,8 +67,9 @@ public class OceanIslandSurfaceBuilder extends BiolithSurfaceBuilder {
 		top = vHeight + delta;
 		for (int y = 0; y <= top; y++) {
 			BlockState originalState = column.getBlock(y);
-			// The material rules have already laid gravel on the old sea floor.
-			if (originalState.is(Blocks.STONE) || originalState.is(Blocks.GRAVEL) || originalState.is(Blocks.WATER) || originalState.isAir()) {
+			// The material rules have already laid gravel, dirt and grass on the old floor.
+			if (originalState.is(Blocks.STONE) || originalState.is(Blocks.GRAVEL) || originalState.is(Blocks.DIRT)
+					|| originalState.is(Blocks.GRASS_BLOCK) || originalState.is(Blocks.WATER) || originalState.isAir()) {
 				if (top > seaLevel + 9) {
 					// In this case we are generating island "inland".
 					if (y < top - 3) {
