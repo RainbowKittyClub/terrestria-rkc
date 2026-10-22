@@ -56,7 +56,10 @@ public class BasaltGrassBlock extends TerraformGrassBlock {
 
 			// NB: this just converts short grass to tall grass, this isn't specific to GRASS_BLOCK
 			if (state.is(Blocks.SHORT_GRASS) && random.nextInt(10) == 0) {
-				((BonemealableBlock) state.getBlock()).performBonemeal(level, random, pos, state, source);
+				BonemealableBlock shortGrass = (BonemealableBlock) state.getBlock();
+				if (shortGrass.isValidBonemealTarget(level, pos, state, source)) {
+					shortGrass.performBonemeal(level, random, pos, state, source);
+				}
 			}
 
 			if (!state.isAir()) {
